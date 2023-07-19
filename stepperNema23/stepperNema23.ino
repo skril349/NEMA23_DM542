@@ -1,13 +1,13 @@
 #include "Nema23.h"
-
-Nema23 nema23(9, 6);
-
 int state = 0;
 int BUTTON_PIN = 4;
 int led_pin = 7;
+float numberTurns = 30;
+Nema23 nema23(9, 6);
+
 void setup() {
-  nema23.begin();
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  nema23.begin(400);
+  pinMode(BUTTON_PIN, INPUT);
   Serial.begin(9600);
   pinMode(led_pin, OUTPUT);
 }
@@ -26,7 +26,7 @@ void loop() {
       }
       break;
     case 1:
-      nema23.moveForward(3);
+      nema23.moveForward(numberTurns);
       Serial.println("state == 2");
       state = 2;
       break;
@@ -37,14 +37,16 @@ void loop() {
       state = 3;
       break;
     case 3:
-      value = digitalRead(BUTTON_PIN);
-      Serial.println(value);
-      delay(500);
+     value = digitalRead(BUTTON_PIN);
+     // Serial.println(value);
+      //delay(500);
       if (value == 0) {
-        nema23.moveBack(3);
-        Serial.println("case = 4");
+        //nema23.moveBack(numberTurns);
+        //Serial.println("case = 4");
         state = 4;
       }
+      
+      state = 4;
       break;
     case 4:
       nema23.stop();
