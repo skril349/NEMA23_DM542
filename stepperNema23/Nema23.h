@@ -6,16 +6,17 @@
 class Nema23 {
 public:
   Nema23(int dirPin, int stepPin);
-  void begin();
-  void moveForward(int rounds);
-  void moveBack(int rounds);
+  void begin(int pulses_rev);
+  void moveForward(float rounds);
+  void moveBack(float rounds);
   void stop();
 private:
 
   int _dirPin;
   int _stepPin;
   int _steps;
-  int _rounds;
+  float _rounds;
+  int _pulses_rev;
 };
 
 #endif
